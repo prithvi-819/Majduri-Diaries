@@ -1,6 +1,4 @@
-const posts = [
-    { title: 'First Post', content: 'Hello world!' },
+export const posts = [
+    { title: 'Majdoori Monday', content: 'Average day starts with Coffee....' },
     { title: 'Majdoori is real', content: 'We need chai and chill.' }
 ];
-
-module.exports = posts;
