@@ -22,13 +22,9 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.urlencoded({ extended: true }))
 
 app.get('/', (req, res) => {
-    const post = posts;
-    res.render('home', { post });
+    res.render('home', { posts });
 });
 
-app.get('/new', (req, res) => {
-    res.render('new');
-});
 
 app.get('/post/:title', (req, res) => {
     const postId = req.params.title;
@@ -42,6 +38,29 @@ app.get('/post/:title', (req, res) => {
     }
 });
 
+app.get('/new', (req, res) => {
+    res.render('new');
+});
+
+app.post('/new', (req, res) => {
+    const { title, content } = req.body;
+
+    // Validate inputs
+    if (!title || !content) {
+        return res.status(400).send('Missing title or content');
+    }
+
+    const newPost = {
+        id: posts.length + 1, // simple ID logic
+        title,
+        content
+    };
+
+    posts.push(newPost);
+
+    // Redirect to home after adding post
+    res.redirect('/');
+});
 
 app.listen(port, () => {
     console.log('Server running on Port:' + port);
