@@ -30,9 +30,9 @@ app.get('/new', (req, res) => {
     res.render('new');
 });
 
-app.get('/post/:id', (req, res) => {
-    const postId = parseInt(req.params.id);
-    const post = posts.find(postsObject => postsObject.id === postId);
+app.get('/post/:title', (req, res) => {
+    const postId = req.params.title;
+    const post = posts.find(postsObject => postsObject.title === postId);
 
     if (post) {
         res.render('post', { post });
