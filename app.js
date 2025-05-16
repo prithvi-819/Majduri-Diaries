@@ -22,11 +22,24 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.urlencoded({ extended: true }))
 
 app.get('/', (req, res) => {
-    res.render('home', { posts });
+    const post = posts;
+    res.render('home', { post });
 });
 
 app.get('/new', (req, res) => {
     res.render('new');
+});
+
+app.get('/post/:id', (req, res) => {
+    const postId = parseInt(req.params.id);
+    const post = posts.find(postsObject => postsObject.id === postId);
+
+    if (post) {
+        res.render('post', { post });
+    }
+    else {
+        res.status(404).send("Post Not Found!");
+    }
 });
 
 
